@@ -207,6 +207,7 @@ persist LT_ID "$LT_ID"
 persist LT_NAME "$LT_NAME"
 log "Launch Template: $LT_ID"
 
+
 ### Target Group
 log "Creating Target Group..."
 TG_NAME="$(echo "${STACK}-tg" | cut -c1-32)"  # TG name max 32 chars
@@ -274,10 +275,11 @@ persist ASG_NAME "$ASG_NAME"
 
 log "Adding Target Tracking scaling policy (ASG Avg CPU -> ${CPU_TARGET}%)..."
 POLICY_ARN="$(aws autoscaling put-scaling-policy \
-  --policy-name "${STACK}-cpu-tt" \
+  --policy-name "${ASG_NAME}-cpu-tt" \
   --auto-scaling-group-name "$ASG_NAME" \
   --policy-type TargetTrackingScaling \
-  --target-tracking-configuration "PredefinedMetricSpecification={PredefinedMetricType=ASGAverageCPUUtilization},TargetValue=${CPU_TARGET},DisableScaleIn=false,EstimatedInstanceWarmup=120" \
+  --estimated-instance-warmup 120 \
+  --target-tracking-configuration "PredefinedMetricSpecification={PredefinedMetricType=ASGAverageCPUUtilization},TargetValue=${CPU_TARGET},DisableScaleIn=false" \
   --query 'PolicyARN' --output text)"
 persist POLICY_ARN "$POLICY_ARN"
 log "Scaling Policy: $POLICY_ARN"
