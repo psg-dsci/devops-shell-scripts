@@ -1,4 +1,4 @@
-Nice—backup ran clean. Here’s a quick, no-nonsense way to **prove the bundle is good** *before* you delete the VM, and then how to **smoke-test the restore** on a fresh box.
+A quick, no-nonsense way to **prove the bundle is good** *before* you delete the VM, and then how to **smoke-test the restore** on a fresh box.
 
 ---
 
