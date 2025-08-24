@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# oneclick.sh — Backup & Restore for your server (Ubuntu/Debian)
+# oneclick.sh â€” Backup & Restore for your server (Ubuntu/Debian)
 # Usage:
 #   BACKUP  : bash oneclick.sh backup
 #   RESTORE : bash oneclick.sh restore /path/to/bundle.tgz
@@ -37,7 +37,8 @@ backup() {
   echo "==> Starting BACKUP on $HOST @ $NOW"
   need_cmd tar
   PYBIN="$(detect_python)"
-  STAGE="$WORKROOT/stage_${NOW}"
+  ##  STAGE="$WORKROOT/stage_${NOW}"
+  STAGE="$(mktemp -d -p "${TMPDIR:-/tmp}" oneclick_stage_${NOW}_XXXX)"
   PAYLOAD="$STAGE/payload"
   mkdir -p "$PAYLOAD"
 
@@ -64,6 +65,8 @@ backup() {
   mkdir -p "$PAYLOAD/home"
   # Full home, but drop heavy caches/logs (still captures .ssh, .bashrc, keys, etc.)
   tar -C "$HOME" \
+      --exclude='oneclick' \
+      --exclude="$WORKROOT" \
       --exclude='.cache' \
       --exclude='.local/share/Trash' \
       --exclude='.npm' \
@@ -73,6 +76,7 @@ backup() {
       --exclude='**/__pycache__' \
       --exclude='**/*.pyc' \
       -czf "$PAYLOAD/home/home.tar.gz" .
+
 
   echo "==> Capturing Nginx & TLS"
   mkdir -p "$PAYLOAD/nginx"
@@ -85,7 +89,7 @@ backup() {
 
   echo "==> Capturing systemd service units"
   mkdir -p "$PAYLOAD/systemd"
-  # Grab all units; they’re small and restore filters safely.
+  # Grab all units; theyâ€™re small and restore filters safely.
   sudo tar -czf "$PAYLOAD/systemd/systemd_units.tar.gz" /etc/systemd/system || true
 
   echo "==> Offline wheelhouse for Python deps (if requirements.txt exists)"
@@ -153,7 +157,7 @@ if [ -f "$WORKDIR/letsencrypt/letsencrypt.tar.gz" ]; then
   chmod -R go-rwx /etc/letsencrypt || true
 fi
 
-echo "==> Restoring systemd unit templates (we’ll also (re)create the app unit)"
+echo "==> Restoring systemd unit templates (weâ€™ll also (re)create the app unit)"
 if [ -f "$WORKDIR/systemd/systemd_units.tar.gz" ]; then
   tar -xzf "$WORKDIR/systemd/systemd_units.tar.gz" -C /
 fi
@@ -170,7 +174,7 @@ else
 fi
 deactivate
 
-echo "==> Nginx vhost for ${DOMAIN} → 127.0.0.1:${APP_PORT}"
+echo "==> Nginx vhost for ${DOMAIN} â†’ 127.0.0.1:${APP_PORT}"
 cat >/etc/nginx/sites-available/${SERVICE}.conf <<NGINX
 server {
     listen 80;
