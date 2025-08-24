@@ -1,108 +1,99 @@
-A quick, no-nonsense way to **prove the bundle is good** *before* you delete the VM, and then how to **smoke-test the restore** on a fresh box.
+New bundle:
 
----
+```
+/home/divyamohan1993/instance-20250731-114417.us-east1-b.c.dmjone.internal_oneclick_20250824_084804.tgz
+```
 
-## A) Verify the backup bundle (on the current VM)
+has:
 
-> Replace the path in `B=…` with your bundle:
-> `/root/instance-20250731-114417.us-east1-b.c.dmjone.internal_oneclick_20250824_081819.tgz`
+* correct `APP_DIR` (`/home/divyamohan1993/...`) ✔
+* offline wheelhouse captured ✔
+* nginx, letsencrypt, systemd, crons, firewall, home snapshot ✔
+* no “file changed as we read it” warning ✔
+
+## Before you delete the VM (2-minute checklist)
+
+1. **Hash + copy off-box**
 
 ```bash
-# 0) Point to your bundle
-B="/root/instance-20250731-114417.us-east1-b.c.dmjone.internal_oneclick_20250824_081819.tgz"
-
-# 1) Archive integrity + required top-level payload bits exist
-tar -tzf "$B" >/dev/null && echo "OK: bundle readable"
-tar -tzf "$B" | grep -E \
-'payload/(restore\.sh|metadata/meta\.json|home/home\.tar\.gz|nginx/nginx\.tar\.gz|systemd/systemd_units\.tar\.gz)' \
-| sed -n '1,999p'
-
-# 2) Inspect contents (nested tars are present and readable)
-T="$(mktemp -d)"
-tar -xzf "$B" -C "$T"
-ls -lh "$T/payload"
-tar -tzf "$T/payload/home/home.tar.gz"     | head
-tar -tzf "$T/payload/nginx/nginx.tar.gz"   | grep sites-available | head
-[ -f "$T/payload/letsencrypt/letsencrypt.tar.gz" ] && \
-  tar -tzf "$T/payload/letsencrypt/letsencrypt.tar.gz" | head || echo "No LE tar (will re-issue certs)."
-
-# 3) Metadata + restore script syntax
-python3 -m json.tool "$T/payload/metadata/meta.json"
-bash -n "$T/payload/restore.sh" && echo "OK: restore.sh syntax"
-
-# 4) Wheels (offline deps cache) present if you had requirements.txt
-if [ -d "$T/payload/wheels" ]; then
-  echo "Wheel files:"; ls -1 "$T/payload/wheels" | sed -n '1,15p'
-fi
-
-# 5) Create a checksum for transfer integrity
+B=~/instance-*_oneclick_20250824_084804.tgz
 sha256sum "$B" | tee "$B.sha256"
+# copy both files anywhere safe
 ```
 
-**What “good” looks like**
-
-* Step 1 prints “OK: bundle readable” and shows the five key paths.
-* Step 2 can list files inside each nested tar (not empty / not errors).
-* Step 3 pretty-prints JSON and “OK: restore.sh syntax”.
-* Step 4 shows a bunch of `*.whl` names (if your app had `requirements.txt`).
-* Step 5 gives you a SHA256 hash to verify *after* copying the bundle elsewhere.
-
----
-
-## B) After you copy the bundle off the server
-
-On the destination (or just another box) **verify the copy**:
+2. **(Optional but smart) Encrypt at rest**
 
 ```bash
-# Put .tgz and .sha256 in the same directory first
-sha256sum -c /path/to/instance-..._oneclick_20250824_081819.tgz.sha256
-# Expect: "<filename>: OK"
+gpg --symmetric --cipher-algo AES256 "$B"
+# produces ...tgz.gpg (use a strong passphrase)
+```
+
+3. **Sanity peek inside**
+
+```bash
+T=$(mktemp -d); tar -xzf "$B" -C "$T"
+ls -1 "$T/payload" | sed -n '1,50p'
 ```
 
 ---
 
-## C) Smoke-test the restore on a fresh VM
+## One-click **restore dress rehearsal** (fresh throwaway VM)
 
-> Use a disposable VM. This will install packages, Nginx, a systemd service, etc.
-> You can override the defaults safely, e.g. different service name/port:
+> Use the **same username** (`divyamohan1993`) for zero friction. If not, pass `APP_DIR` and the service will run as the invoking user.
 
 ```bash
-# Copy both files to the new VM, then:
-bash oneclick.sh restore /path/to/instance-..._oneclick_20250824_081819.tgz
-# or with overrides to avoid clashing names/ports while testing:
-sudo DOMAIN=test.example SERVICE=airesume-test APP_PORT=8010 \
-     bash oneclick.sh restore /path/to/instance-...tgz
+# copy bundle + oneclick.sh to new VM
+sudo SERVICE=airesume \
+     DOMAIN=jdtuning.dmj.one \
+     APP_PORT=8000 \
+     APP_DIR=/home/divyamohan1993/AI-Resume-Optimizer/AI_Resume_Optimizer \
+     bash oneclick.sh restore /path/to/instance-..._084804.tgz
 ```
 
-**Post-restore checks (all should succeed):**
+### Quick smoke tests
 
 ```bash
-# App service up?
-systemctl is-active airesume         # (or your SERVICE) -> active
-
-# App port listening?
-ss -ltnp | grep :8000               # (or APP_PORT)
-
-# App responds locally?
-curl -I http://127.0.0.1:8000       # expect HTTP/200 or your app’s default response
-
-# Nginx config OK and serving your domain mapping?
-sudo nginx -t
-curl -I -H "Host: jdtuning.dmj.one" http://127.0.0.1  # expect 200/301
-
-# TLS present (if you restored/issued certs)?
-sudo certbot certificates | sed -n '/jdtuning\.dmj\.one/,+8p'
-
-# Firewall restored and open for web?
+systemctl is-active airesume                      # active
+ss -ltnp | grep :8000                             # listening
+curl -I http://127.0.0.1:8000                     # 200/301
+sudo nginx -t                                     # syntax OK
+curl -I -H "Host: jdtuning.dmj.one" http://127.0.0.1
 sudo ufw status
-
-# Crons restored (if you had any)?
-crontab -l || true
-sudo crontab -l || true
-
-# Service logs (look for errors)
-journalctl -u airesume -n 200 --no-pager
+journalctl -u airesume -n 100 --no-pager          # no errors
 ```
 
-If those all pass, you’re green to decommission the old VM.
-If anything fails, paste the exact command output and I’ll pinpoint the fix.
+### TLS note
+
+* If `/etc/letsencrypt` restored: you’re good.
+* If not (or domain isn’t pointing yet): cert issuance will be skipped/failed harmlessly; point DNS → rerun:
+
+```bash
+sudo certbot --nginx -d jdtuning.dmj.one --redirect -m contact@dmj.one --agree-tos -n
+```
+
+---
+
+## If the new VM user is different
+
+Either create the same user:
+
+```bash
+sudo adduser --disabled-password --gecos "" divyamohan1993
+sudo usermod -aG sudo divyamohan1993
+su - divyamohan1993
+```
+
+…or just override:
+
+```bash
+sudo APP_DIR=/home/<newuser>/AI-Resume-Optimizer/AI_Resume_Optimizer \
+     SERVICE=airesume APP_PORT=8000 \
+     bash oneclick.sh restore /path/to/bundle.tgz
+```
+
+---
+
+## Green-light to nuke 💣
+
+Once the dress rehearsal passes, you can safely delete the old VM.
+(If you ever rotate secrets later, just drop the new `.env`/key in place and `sudo systemctl restart airesume`.)
