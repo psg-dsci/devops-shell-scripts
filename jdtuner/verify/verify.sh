@@ -1,5 +1,5 @@
 # 0) Point to your bundle
-B="/root/instance-20250731-114417.us-east1-b.c.dmjone.internal_oneclick_20250824_081819.tgz"
+B="instance-20250731-114417.us-east1-b.c.dmjone.internal_oneclick_20250824_081819.tgz"
 
 # 1) Archive integrity + required top-level payload bits exist
 tar -tzf "$B" >/dev/null && echo "OK: bundle readable"
