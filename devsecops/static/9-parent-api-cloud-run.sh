@@ -176,7 +176,7 @@ CMD ["uvicorn","main:app","--host","0.0.0.0","--port","8080","--workers","4"]
 EOF
 
 # Build & push parent
-gcloud builds submit --tag $REGION-docker.pkg.dev/$PROJECT_ID/milapi-repo/parent-api:1
+gcloud builds submit --tag us-south2-docker.pkg.dev/unified-icon-469918-s7/milapi-repo/parent-api:1
 
 
 # 9.1 Get the internal IPs of the two intranet servers
@@ -186,9 +186,9 @@ echo $IP_A $IP_B
 
 # 9.2. Deploy Cloud Run parent API (public), VPC-egress only
 gcloud run deploy parent-milapi \
-  --image $REGION-docker.pkg.dev/$PROJECT_ID/milapi-repo/parent-api:1 \
-  --service-account parent-sa@$PROJECT_ID.iam.gserviceaccount.com \
-  --set-env-vars PROJECT_ID=$PROJECT_ID,REGION=$REGION,INTRA_A_IP=$IP_A,INTRA_B_IP=$IP_B \
+  --image us-south2-docker.pkg.dev/unified-icon-469918-s7/milapi-repo/parent-api:1 \
+  --service-account parent-sa@unified-icon-469918-s7.iam.gserviceaccount.com \
+  --set-env-vars PROJECT_ID=unified-icon-469918-s7,REGION=us-south2,INTRA_A_IP=$IP_A,INTRA_B_IP=$IP_B \
   --vpc-connector dmz-connector --vpc-egress all-traffic \
   --allow-unauthenticated \
   --max-instances 1000 --concurrency 200

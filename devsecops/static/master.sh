@@ -9,7 +9,7 @@ bash 1-enable-api.sh
 bash 2-networking.sh
 
 # 3. Firewall: lock down intranet, allow only from connector
-bash firewall.sh
+bash 3-firewall.sh
 
 # 4. IAM service accounts & minimal roles
 bash 4-iam-accounts.sh

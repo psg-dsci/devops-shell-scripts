@@ -7,8 +7,8 @@ printf "%s" "$CHALLENGE_SECRET" | gcloud secrets create CHALLENGE_SECRET --data-
 
 # Restrict access to parent-sa only
 gcloud secrets add-iam-policy-binding CLIENT_API_KEY \
-  --member="serviceAccount:parent-sa@$PROJECT_ID.iam.gserviceaccount.com" \
+  --member="serviceAccount:parent-sa@unified-icon-469918-s7.iam.gserviceaccount.com" \
   --role="roles/secretmanager.secretAccessor"
 gcloud secrets add-iam-policy-binding CHALLENGE_SECRET \
-  --member="serviceAccount:parent-sa@$PROJECT_ID.iam.gserviceaccount.com" \
+  --member="serviceAccount:parent-sa@unified-icon-469918-s7.iam.gserviceaccount.com" \
   --role="roles/secretmanager.secretAccessor"

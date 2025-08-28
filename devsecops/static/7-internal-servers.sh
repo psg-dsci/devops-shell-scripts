@@ -118,5 +118,5 @@ CMD exec gunicorn --workers 4 --threads 8 --bind 0.0.0.0:8080 app:app
 EOF
 
 # Build & push
-gcloud builds submit --tag $REGION-docker.pkg.dev/$PROJECT_ID/milapi-repo/intranet-api:1
+gcloud builds submit --tag us-south2-docker.pkg.dev/unified-icon-469918-s7/milapi-repo/intranet-api:1
 cd ..

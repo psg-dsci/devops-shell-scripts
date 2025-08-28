@@ -1,6 +1,6 @@
 # Artifact Registry for our containers
 gcloud artifacts repositories create milapi-repo \
-  --repository-format=docker --location=$REGION
+  --repository-format=docker --location=us-south2
 
 # KMS for per-request JWT signing (admin can't export private key)
 gcloud kms keyrings create milapi-kr --location=global
@@ -11,7 +11,7 @@ gcloud kms keys create auth-signing-key \
 # Allow ONLY parent-sa to sign (no one else, no export possible)
 gcloud kms keys add-iam-policy-binding auth-signing-key \
   --keyring=milapi-kr --location=global \
-  --member="serviceAccount:parent-sa@$PROJECT_ID.iam.gserviceaccount.com" \
+  --member="serviceAccount:parent-sa@unified-icon-469918-s7.iam.gserviceaccount.com" \
   --role="roles/cloudkms.signerVerifier"
 
 # Fetch public key (bake into internal servers to verify JWT)
