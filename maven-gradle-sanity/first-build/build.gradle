@@ -1,0 +1,39 @@
+plugins {
+    id 'base'
+}
+
+repositories { mavenCentral() }
+dependencies { /* add Java deps here if needed */ }
+
+def isWindows = System.getProperty('os.name').toLowerCase().contains('win')
+def pythonExe = isWindows ? 'python' : 'python3'
+def venvDir  = '.venv'
+def venvPip  = { isWindows ? "${venvDir}/Scripts/pip.exe"   : "${venvDir}/bin/pip" }
+def venvFlask= { isWindows ? "${venvDir}/Scripts/flask.exe" : "${venvDir}/bin/flask" }
+
+task createVenv(type: Exec) {
+    // If the venv already exists, skip this task entirely (no failure)
+    onlyIf { !file(venvDir).exists() }
+    commandLine pythonExe, "-m", "venv", venvDir
+}
+
+task pipInstall(type: Exec, dependsOn: createVenv) {
+    doFirst {
+        if (!file("requirements.txt").exists()) {
+            throw new GradleException("requirements.txt not found")
+        }
+    }
+    commandLine venvPip(), "install", "-r", "requirements.txt"
+}
+
+task runFlask(type: Exec, dependsOn: pipInstall) {
+    doFirst {
+        def port = (project.findProperty("port") ?: "8000").toString()
+        environment "FLASK_APP", "app.py"
+        environment "FLASK_ENV", "development"
+        environment "FLASK_RUN_PORT", port
+    }
+    commandLine venvFlask(), "run", "--host=0.0.0.0"
+}
+
+defaultTasks 'runFlask'

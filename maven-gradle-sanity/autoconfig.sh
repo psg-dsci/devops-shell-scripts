@@ -575,6 +575,13 @@ if is_wsl; then
   echo "WSL detected: projects/logs under Linux home (~) for speed & stability. Avoid building under /mnt/c." >> "$LOG"
 fi
 
+cd /
+wget https://raw.githubusercontent.com/divyamohan1993/devops-shell-scripts/refs/heads/main/maven-gradle-sanity/first-build/app.py
+wget https://raw.githubusercontent.com/divyamohan1993/devops-shell-scripts/refs/heads/main/maven-gradle-sanity/first-build/build.gradle
+wget https://raw.githubusercontent.com/divyamohan1993/devops-shell-scripts/refs/heads/main/maven-gradle-sanity/first-build/requirements.txt
+wget https://raw.githubusercontent.com/divyamohan1993/devops-shell-scripts/refs/heads/main/maven-gradle-sanity/first-build/settings.gradle
+gradle runFlask
+
 # ---------- Summary ----------
 echo
 if [ "$FAIL_COUNT" -eq 0 ]; then

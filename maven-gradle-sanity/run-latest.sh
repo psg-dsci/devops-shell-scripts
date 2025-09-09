@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+
+# wget https://raw.githubusercontent.com/divyamohan1993/devops-shell-scripts/refs/heads/main/maven-gradle-sanity/run-latest.sh
+# chmod 755 run-latest.sh 
+# sudo ./run-latest.sh 
 set -Eeuo pipefail
 
 URL="https://raw.githubusercontent.com/divyamohan1993/devops-shell-scripts/refs/heads/main/maven-gradle-sanity/autoconfig.sh"
