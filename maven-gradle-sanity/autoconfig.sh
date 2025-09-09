@@ -25,8 +25,8 @@ no()  { echo "[FAIL]"; FAILED_STEPS+=("$1"); FAIL_COUNT=$((FAIL_COUNT+1)); }
 section() { echo -e "\n=== $1 ===" | tee -a "$LOG"; }
 run() {
   local DESC="$1"; shift
-  say "$DESC"
-  bash -lc "$*" >>"$LOG" 2>&1
+  say "$DESC"  
+  bash -lic "$*" >>"$LOG" 2>&1
   local RC=$?
   if [ $RC -eq 0 ]; then ok; else no "$DESC"; fi
   return $RC
@@ -204,6 +204,20 @@ touch "$HOME/.bashrc"
 # Install SDKMAN
 if run "Install SDKMAN!" 'curl -s "https://get.sdkman.io" | bash'; then
   run "Init SDKMAN" 'source "$HOME/.sdkman/bin/sdkman-init.sh"'
+  # Ensure SDKMAN init is persisted and available to this script
+  say "Ensure SDKMAN init in .bashrc"
+  SDKINIT='[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"'
+  if grep -qxF "$SDKINIT" "$HOME/.bashrc" 2>/dev/null; then
+    ok
+  else
+    echo "$SDKINIT" >> "$HOME/.bashrc" && ok || no "Ensure SDKMAN init in .bashrc"
+  fi
+  # Also source it for the current process so `have gradle` works below
+  if [ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]; then
+    # shellcheck disable=SC1090
+    source "$HOME/.sdkman/bin/sdkman-init.sh"
+  fi
+
   # auto-yes & silent
   run "SDKMAN auto-yes" 'mkdir -p "$HOME/.sdkman/etc"; echo "sdkman_auto_answer=true" > "$HOME/.sdkman/etc/config"'
   # install gradle quietly
@@ -279,10 +293,10 @@ fi
 # ---------- summary ----------
 echo
 if [ "$FAIL_COUNT" -eq 0 ]; then
-  echo "✅ SUCCESS — Java 17, Maven, Gradle installed & verified. Log: $LOG"
+  echo "SUCCESS — Java 17, Maven, Gradle installed & verified. Log: $LOG"
   exit 0
 else
-  echo "❌ FAIL — $FAIL_COUNT step(s) failed:"
+  echo "FAIL — $FAIL_COUNT step(s) failed:"
   for s in "${FAILED_STEPS[@]}"; do echo "   - $s"; done
   echo "See detailed log: $LOG"
   exit 1
