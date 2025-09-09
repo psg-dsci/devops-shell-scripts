@@ -581,6 +581,8 @@ wget https://raw.githubusercontent.com/divyamohan1993/devops-shell-scripts/refs/
 wget https://raw.githubusercontent.com/divyamohan1993/devops-shell-scripts/refs/heads/main/maven-gradle-sanity/first-build/requirements.txt
 wget https://raw.githubusercontent.com/divyamohan1993/devops-shell-scripts/refs/heads/main/maven-gradle-sanity/first-build/
 
+gradle runFlask
+
 # ---------- Summary ----------
 echo
 if [ "$FAIL_COUNT" -eq 0 ]; then
