@@ -61,14 +61,27 @@ if (( DEBUG )); then
   echo "DEBUG MODE ON: verbose xtrace enabled" | tee -a "$LOG"
 fi
 
+# [ADD] Put this block right after the DEBUG block (before FAILED_STEPS)
+# ---- Color palette (TTY-aware; disable with NO_COLOR=1) ----
+if [ -t 1 ] && [ -z "${NO_COLOR:-}" ]; then
+  RESET=$'\033[0m'; BOLD=$'\033[1m'; DIM=$'\033[2m'
+  BLUE=$'\033[38;5;39m'; CYAN=$'\033[36m'
+  GREEN=$'\033[38;5;82m'; YELLOW=$'\033[38;5;214m'
+  RED=$'\033[38;5;196m'; GRAY=$'\033[38;5;245m'
+else
+  RESET=; BOLD=; DIM=; BLUE=; CYAN=; GREEN=; YELLOW=; RED=; GRAY=
+fi
+OK_BR="${GRAY}[${RESET}${GREEN}OK${RESET}${GRAY}]${RESET}"
+FAIL_BR="${GRAY}[${RESET}${RED}FAIL${RESET}${GRAY}]${RESET}"
+
 
 FAILED_STEPS=()
 FAIL_COUNT=0
 
 say() { printf "%-70s" "• $1"; }
-ok()  { echo "[OK]"; }
-no()  { echo "[FAIL]"; FAILED_STEPS+=("$1"); FAIL_COUNT=$((FAIL_COUNT+1)); }
-section(){ echo -e "\n=== $1 ===" | tee -a "$LOG"; }
+ok()  { echo -e "${OK_BR}"; }
+no()  { echo -e "${FAIL_BR}"; FAILED_STEPS+=("$1"); FAIL_COUNT=$((FAIL_COUNT+1)); }
+section(){ echo -e "\n${BOLD}${BLUE}=== $1 ===${RESET}" | tee -a "$LOG"; }
 have(){ command -v "$1" >/dev/null 2>&1; }
 is_wsl(){ grep -qiE "microsoft|wsl" /proc/sys/kernel/osrelease 2>/dev/null; }
 append_once(){ local L="$1" F="$2"; grep -qxF "$L" "$F" 2>/dev/null || echo "$L" >> "$F"; }
