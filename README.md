@@ -1,33 +1,89 @@
-<p align="center">
+<a name="top"></a>
+
+<div align="center" style="display:flex;justify-content:center;align-items:center;gap:48px;">
   <a href="https://shooliniuniversity.com/" target="_blank">
-    <img src="https://shooliniuniversity.com/assets/images/logo.png" alt="Shoolini University" height="64">
+    <img src="https://shooliniuniversity.com/assets/images/logo.png" alt="Shoolini University — Logo" height="72">
   </a>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <a href="https://lntedutech.com/" target="_blank">
-    <img src="https://lntedutech.com/wp-content/uploads/2024/01/edutech_logo.webp" alt="L&T EduTech" height="64">
+    <img src="https://lntedutech.com/wp-content/uploads/2024/01/edutech_logo.webp" alt="L&T EduTech — Logo" height="72">
   </a>
-</p>
+</div>
 
-<h1 align="center">DevOps and Deployment - LNT Training</h1>
+<h1 align="center">DevOps & Deployment — L&amp;T EduTech Training Repository</h1>
 
-<p align="center">
-  <em>Hands-on DevOps scripts and labs from the Shoolini University × L&amp;T EduTech training program.</em>
-</p>
-
-<p align="center">
-  <strong>Trainer:</strong> Prashant Singh Gautam &nbsp;•&nbsp; <strong>Prepared by</strong> Divya Mohan
-</p>
-
-<p align="center">
-  <a href="https://github.com/divyamohan1993/devops-shell-scripts/"><strong>Repository</strong></a>
-  &nbsp;•&nbsp; Bash &nbsp;•&nbsp; Docker/K8s &nbsp;•&nbsp; CI/CD &nbsp;•&nbsp; IaC &nbsp;•&nbsp; DevSecOps &nbsp;•&nbsp; Observability
-</p>
+<p align="center"><strong>Prepared by:</strong> Divya Mohan (Sole Contributor)</p>
+<p align="center"><strong>Trainer:</strong> Prashant Singh Gautam</p>
 
 ---
 
-DevOps Shell Scripts - notes, scripts, and real-world experiments from my L&amp;T EduTech DevOps training at Shoolini University. This repo will grow continuously (expect variety: Bash utilities, Docker/Kubernetes workflows, CI/CD snippets, IaC samples, security scans, and observability helpers).
+### Academic Information
 
-**Repo:** https://github.com/divyamohan1993/devops-shell-scripts/
+- **Institution:** Shoolini University  
+- **Program:** L&T EduTech — DevOps & Deployment (Hands-on Training)  
+- **Repository:** <a href="https://github.com/divyamohan1993/devops-shell-scripts/">github.com/divyamohan1993/devops-shell-scripts</a>
+
+---
+
+## Introduction
+
+<div style="text-align:justify">
+This repository is an academic training archive for DevOps and Deployment at Shoolini University in collaboration with L&amp;T EduTech. It consolidates scripts, reproducible labs, and implementation notes that emphasize practical, production-aware skills: shell best practices, containerization, orchestration, CI/CD, Infrastructure as Code, DevSecOps controls, and observability. Content is iterative and versioned as the training progresses, with an emphasis on safe experimentation (VMs/containers), traceable automation, and enterprise-style guardrails.
+</div>
+
+---
+
+## Learning Objectives
+
+- Apply **strict, reproducible Bash** patterns with linting, logging, and safe defaults.  
+- Build **containerized** workflows and deploy to **Kubernetes** with Helm/Kustomize.  
+- Implement **CI/CD** pipelines with quality and security gates (ShellCheck, Semgrep, Trivy, Gitleaks).  
+- Manage **Infrastructure as Code** (Terraform/OpenTofu) and environment promotion.  
+- Instrument services with **metrics, logging, dashboards**, and actionable alerts.  
+- Practice **DevSecOps**: SCA, SAST/DAST, SBOMs & signing, policy-as-code, and runtime monitoring.
+
+---
+
+## Acknowledgment
+
+This training is made possible through academic collaboration between:
+
+<div align="center" style="display:flex;justify-content:center;align-items:center;gap:48px;">
+  <a href="https://shooliniuniversity.com/" target="_blank">
+    <img src="https://shooliniuniversity.com/assets/images/logo.png" alt="Shoolini University — Logo" width="160">
+  </a>
+  <a href="https://lntedutech.com/" target="_blank">
+    <img src="https://lntedutech.com/wp-content/uploads/2024/01/edutech_logo.webp" alt="L&T EduTech — Logo" width="180">
+  </a>
+</div>
+
+<p align="center"><em>Special thanks to the instructor, mentors, and the open-source community for guidance and resources.</em></p>
+
+---
+
+## Table of Contents
+
+1. **Overview & Scope**
+   - [Introduction](#introduction)  
+   - [Learning Objectives](#learning-objectives)  
+
+2. **Hands-on Materials**
+   - [Quick start](#quick-start)  
+   - [DevOps — Top 10 Daily Things & Tools](#devops--top-10-daily-things--the-tools-youll-see)  
+   - [DevSecOps — Top 10 Daily Things & Tools](#devsecops--top-10-daily-things--the-tools-youll-see)  
+
+3. **Repository Layout**
+   - `scripts/` — Bash utilities & installers  
+   - `k8s/` — manifests, Helm/Kustomize, kind/minikube helpers  
+   - `ci/` — CI snippets (e.g., ShellCheck/Gitleaks/Trivy)  
+   - `iac/` — Terraform/OpenTofu samples  
+   - `security/` — Semgrep, Trivy/Grype, Syft/CycloneDX, cosign  
+   - `observability/` — Prometheus rules, Grafana dashboards, logging agents  
+
+4. **Policy & Credits**
+   - [Notes, Credits & Responsible Use](#notes-credits--responsible-use)  
+   - License & Trademarks (see **LICENSE**)  
+
+---
 
 > **Scope at a glance:**  
 > - Reproducible shell scripts with strict mode, logging, and safety checks  
@@ -37,6 +93,7 @@ DevOps Shell Scripts - notes, scripts, and real-world experiments from my L&amp;
 > - Prometheus/Grafana quick dashboards and logging agents
 
 ---
+
 
 ## Why DevOps
 
