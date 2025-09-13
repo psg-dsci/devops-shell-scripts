@@ -1,35 +1,43 @@
 <p align="center">
   <a href="https://shooliniuniversity.com/" target="_blank">
-    <img src="https://shooliniuniversity.com/assets/images/su-naac.png" alt="Shoolini University" height="56">
+    <img src="https://shooliniuniversity.com/assets/images/su-naac.png" alt="Shoolini University" height="64">
   </a>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <a href="https://lntedutech.com/" target="_blank">
-    <img src="https://lntedutech.com/wp-content/uploads/2024/01/edutech_logo.webp" alt="L&T EduTech" height="56">
+    <img src="https://lntedutech.com/wp-content/uploads/2024/01/edutech_logo.webp" alt="L&T EduTech" height="64">
   </a>
 </p>
 
 <h1 align="center">devops-shell-scripts</h1>
 
 <p align="center">
-  <em>Hands-on DevOps scripts and labs from the Shoolini University × L&amp;T EduTech training.</em>
+  <em>Hands-on DevOps scripts and labs from the Shoolini University × L&amp;T EduTech training program.</em>
 </p>
 
 <p align="center">
-  <strong>Trainer:</strong> Prashant Singh Gautam
+  <strong>Trainer:</strong> Prashant Singh Gautam &nbsp;•&nbsp; <strong>Contributor:</strong> Divya Mohan (sole contributor)
 </p>
 
 <p align="center">
-  <a href="https://github.com/divyamohan1993/devops-shell-scripts/"><strong>Repo</strong></a>
-  &nbsp;•&nbsp; Bash &nbsp;•&nbsp; Docker/K8s &nbsp;•&nbsp; CI/CD &nbsp;•&nbsp; DevSecOps
+  <a href="https://github.com/divyamohan1993/devops-shell-scripts/"><strong>Repository</strong></a>
+  &nbsp;•&nbsp; Bash &nbsp;•&nbsp; Docker/K8s &nbsp;•&nbsp; CI/CD &nbsp;•&nbsp; IaC &nbsp;•&nbsp; DevSecOps &nbsp;•&nbsp; Observability
 </p>
 
 ---
 
-DevOps Shell Scripts — notes, scripts, and hands-on experiments from my L&T EduTech DevOps training at Shoolini University. This repo will grow as I learn (expect variety: Bash, Docker/K8s, CI/CD, security scans, etc).
+DevOps Shell Scripts — notes, scripts, and real-world experiments from my L&amp;T EduTech DevOps training at Shoolini University. This repo will grow continuously (expect variety: Bash utilities, Docker/Kubernetes workflows, CI/CD snippets, IaC samples, security scans, and observability helpers).
 
 **Repo:** https://github.com/divyamohan1993/devops-shell-scripts/
 
+> **Scope at a glance:**  
+> - Reproducible shell scripts with strict mode, logging, and safety checks  
+> - CI-ready snippets (ShellCheck, Gitleaks, Trivy, Semgrep, Syft/CycloneDX)  
+> - Kubernetes/Helm basics and local clusters (kind/minikube)  
+> - Terraform/OpenTofu starters for common cloud patterns  
+> - Prometheus/Grafana quick dashboards and logging agents
+
 ---
+
 
 ## Why DevOps
 
@@ -121,3 +129,25 @@ grype alpine:3.20
 # IaC checks
 checkov -d ./iac
 ```
+
+---
+
+## Notes, Credits & Responsible Use
+
+- **Sole contributor:** Divya Mohan — learning in public, iterating fast.  
+- **Academic context:** Shoolini University × L&T EduTech DevOps training.  
+- **Trainer:** Prashant Singh Gautam.
+
+### Responsible use
+These scripts are for **learning and prototyping**. Review before running, prefer containers/VMs, and never run unvetted commands on production systems. Replace placeholders, keep secrets out of source control, and enable branch protections + required checks.
+
+### Acknowledgments
+Thanks to the instructor, peers, and the broader open-source community whose tools and docs make this work possible.
+
+### Contact & Contributions
+Have ideas or spot issues? Please open a **GitHub Issue** in this repo. PRs are welcome as the repo matures.
+
+### License & Trademarks
+See **LICENSE** for usage terms (add one if missing). Logos are property of their respective owners and are used here **for identification only**.
+
+<p align="right"><a href="#devops-shell-scripts">Back to top ↑</a></p>
