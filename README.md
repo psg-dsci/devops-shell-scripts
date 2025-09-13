@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://shooliniuniversity.com/" target="_blank">
-    <img src="https://shooliniuniversity.com/assets/images/su-naac.png" alt="Shoolini University" height="64">
+    <img src="https://shooliniuniversity.com/assets/images/logo.png" alt="Shoolini University" height="64">
   </a>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <a href="https://lntedutech.com/" target="_blank">
@@ -8,14 +8,14 @@
   </a>
 </p>
 
-<h1 align="center">devops-shell-scripts</h1>
+<h1 align="center">DevOps and Deployment - LNT Training</h1>
 
 <p align="center">
   <em>Hands-on DevOps scripts and labs from the Shoolini University × L&amp;T EduTech training program.</em>
 </p>
 
 <p align="center">
-  <strong>Trainer:</strong> Prashant Singh Gautam &nbsp;•&nbsp; <strong>Contributor:</strong> Divya Mohan (sole contributor)
+  <strong>Trainer:</strong> Prashant Singh Gautam &nbsp;•&nbsp; <strong>Prepared by</strong> Divya Mohan
 </p>
 
 <p align="center">
@@ -25,7 +25,7 @@
 
 ---
 
-DevOps Shell Scripts — notes, scripts, and real-world experiments from my L&amp;T EduTech DevOps training at Shoolini University. This repo will grow continuously (expect variety: Bash utilities, Docker/Kubernetes workflows, CI/CD snippets, IaC samples, security scans, and observability helpers).
+DevOps Shell Scripts - notes, scripts, and real-world experiments from my L&amp;T EduTech DevOps training at Shoolini University. This repo will grow continuously (expect variety: Bash utilities, Docker/Kubernetes workflows, CI/CD snippets, IaC samples, security scans, and observability helpers).
 
 **Repo:** https://github.com/divyamohan1993/devops-shell-scripts/
 
@@ -38,7 +38,6 @@ DevOps Shell Scripts — notes, scripts, and real-world experiments from my L&am
 
 ---
 
-
 ## Why DevOps
 
 These choices reflect what enterprises actually use day-to-day, backed by 2024–2025 ecosystem reports (Stack Overflow, CNCF, Grafana, GitHub, JetBrains, Sonatype). See references at the end.
@@ -48,68 +47,68 @@ These choices reflect what enterprises actually use day-to-day, backed by 2024�
 ## DevOps — top 10 daily things & the tools you’ll see
 
 1. **Git-based source control & PR flow**  
-   Tools: GitHub / GitLab / Bitbucket. (Git is near-universal across teams.) [[JetBrains][1]]
+   Tools: GitHub / GitLab / Bitbucket. (Git is near-universal across teams.)
 
 2. **CI/CD pipelines**  
-   Tools: GitHub Actions, Jenkins, GitLab CI, Azure DevOps, CircleCI. (Consistently top used in current surveys.) [[SO 2025][2]][[SO Tech][3]]
+   Tools: GitHub Actions, Jenkins, GitLab CI, Azure DevOps, CircleCI.
 
 3. **Containers**  
-   Tools: Docker, Podman. (Docker ranks among the most-used tools in 2025.) [[SO Tech][3]]
+   Tools: Docker, Podman.
 
 4. **Orchestration / platform**  
-   Tools: Kubernetes (+ Helm, Kustomize, Argo CD/Flux). (Cloud-native adoption hit **89%** in 2024; **~80%** run K8s in production.) [[CNCF Survey 2024][4]][[CNCF 2025 brief][9]]
+   Tools: Kubernetes (+ Helm, Kustomize, Argo CD/Flux). (Cloud-native adoption hit **89%** in 2024; **~80%** run K8s in production.)
 
 5. **Infrastructure as Code**  
-   Tools: Terraform/OpenTofu, CloudFormation, Pulumi. (Terraform remains widely used.) [[SO Tech][3]]
+   Tools: Terraform/OpenTofu, CloudFormation, Pulumi.
 
 6. **Config & release management**  
-   Tools: Ansible, Helm, Packer. (Ansible continues to feature in the top toolsets.) [[SO Tech][3]]
+   Tools: Ansible, Helm, Packer.
 
 7. **Observability (metrics + dashboards + alerting)**  
-   Tools: Prometheus + Grafana; Datadog, New Relic, Splunk. (Strong Prometheus investment reported in 2024.) [[Grafana Obs 2024 PDF][5]]
+   Tools: Prometheus + Grafana; Datadog, New Relic, Splunk.
 
 8. **Centralized logging**  
-   Tools: Elastic Stack (Elasticsearch/Logstash/Kibana), Loki, CloudWatch/Stackdriver. (Common enterprise logging patterns.) [[InfoQ logging][6]]
+   Tools: Elastic Stack (Elasticsearch/Logstash/Kibana), Loki, CloudWatch/Stackdriver.
 
 9. **Artifact & container registries**  
-   Tools: Artifactory, Nexus, Harbor; GitHub/GitLab Packages; ECR/GCR/ACR. (Open-source consumption at multi-trillion download scale → registries are standard plumbing.) [[Sonatype SOSSC 2024][7]]
+   Tools: Artifactory, Nexus, Harbor; GitHub/GitLab Packages; ECR/GCR/ACR. (Open-source consumption at multi-trillion download scale → registries are standard plumbing.)
 
 10. **Project tracking & ChatOps**  
-    Tools: Jira / GitHub Issues / Azure Boards; Slack / Microsoft Teams for alerts & runbooks. (Common in developer ecosystem reports.) [[JetBrains][1]]
+    Tools: Jira / GitHub Issues / Azure Boards; Slack / Microsoft Teams for alerts & runbooks.
 
 ---
 
 ## DevSecOps — top 10 daily things & the tools you’ll see
 
 1. **Software Composition Analysis (SCA) & dependency updates**  
-   Tools: Dependabot, Snyk, OWASP Dependency-Check, Renovate. (Dependabot’s impact studied at scale.) [[Dependabot study][8]]
+   Tools: Dependabot, Snyk, OWASP Dependency-Check, Renovate.
 
 2. **Secrets hygiene & leak prevention**  
-   Tools: GitHub Secret Scanning, Gitleaks, TruffleHog. (**39M** leaked secrets detected on GitHub in 2024 → secret scanning is table-stakes.) [[GitHub secrets 2024][10]]
+   Tools: GitHub Secret Scanning, Gitleaks, TruffleHog. (**39M** leaked secrets detected on GitHub in 2024 → secret scanning is table-stakes.)
 
 3. **Static Application Security Testing (SAST) in CI**  
-   Tools: SonarQube/SonarCloud, Semgrep, Checkmarx, Veracode, GitLab SAST. (SAST is a core “shift-left” control.) [[OWASP SAST][11]]
+   Tools: SonarQube/SonarCloud, Semgrep, Checkmarx, Veracode, GitLab SAST. (SAST is a core “shift-left” control.)
 
 4. **Dynamic testing of running apps (DAST)**  
-   Tools: OWASP ZAP, Burp Suite, StackHawk. (DAST = black-box tests of live apps.) [[OWASP DAST][12]]
+   Tools: OWASP ZAP, Burp Suite, StackHawk. (DAST = black-box tests of live apps.)
 
 5. **Container/image & artifact scanning**  
-   Tools: Trivy, Grype, Anchore, Clair; Syft for SBOMs. (Independent comparisons cover Trivy/Grype trade-offs.) [[MSU Trivy vs Grype][13]]
+   Tools: Trivy, Grype, Anchore, Clair; Syft for SBOMs.
 
 6. **IaC & K8s policy checks (shift-left)**  
-   Tools: Checkov, tfsec/Terrascan; **Policy-as-Code with OPA/Conftest**, Kyverno. (OPA is a **CNCF Graduated** policy engine.) [[OPA @ CNCF][14]]
+   Tools: Checkov, tfsec/Terrascan; **Policy-as-Code with OPA/Conftest**, Kyverno.
 
 7. **Secrets management**  
-   Tools: HashiCorp Vault (incl. HCP Vault), External Secrets Operator, cloud KMS. (Vault is a common enterprise anchor for secrets.) [[Vault docs][15]]
+   Tools: HashiCorp Vault (incl. HCP Vault), External Secrets Operator, cloud KMS. (Vault is a common enterprise anchor for secrets.)
 
 8. **Supply chain integrity: SBOMs & signing**  
-   Tools: Syft/CycloneDX/SPDX for SBOMs; **Sigstore cosign** for signing/attestations. (Cosign supports SBOM attach/attest and modern attestations.) [[Sigstore docs][16]][[Chainguard guide][17]]
+   Tools: Syft/CycloneDX/SPDX for SBOMs; **Sigstore cosign** for signing/attestations.
 
 9. **Runtime & cloud-native threat detection**  
-   Tools: **Falco** (CNCF *graduated* project), plus CNAPP/CSPM platforms (Wiz/Prisma/Defender/etc.). [[Falco graduation][18]]
+   Tools: **Falco** (CNCF *graduated* project), plus CNAPP/CSPM platforms (Wiz/Prisma/Defender/etc.).
 
 10. **Vulnerability management & SIEM/SOAR**  
-    Tools: Tenable Nessus, Qualys, Defender for Cloud; SIEMs: Splunk, Sentinel. (Commonly paired with DevOps monitoring stacks.) [[SO Tech][3]]
+    Tools: Tenable Nessus, Qualys, Defender for Cloud; SIEMs: Splunk, Sentinel.
 
 ---
 
@@ -134,7 +133,7 @@ checkov -d ./iac
 
 ## Notes, Credits & Responsible Use
 
-- **Sole contributor:** Divya Mohan — learning in public, iterating fast.  
+- **Contributor:** Divya Mohan — learning in public, iterating fast.  
 - **Academic context:** Shoolini University × L&T EduTech DevOps training.  
 - **Trainer:** Prashant Singh Gautam.
 
@@ -148,6 +147,6 @@ Thanks to the instructor, peers, and the broader open-source community whose too
 Have ideas or spot issues? Please open a **GitHub Issue** in this repo. PRs are welcome as the repo matures.
 
 ### License & Trademarks
-See **LICENSE** for usage terms (add one if missing). Logos are property of their respective owners and are used here **for identification only**.
+See **LICENSE** for usage terms. Logos are property of their respective owners and are used here **for identification only**.
 
 <p align="right"><a href="#devops-shell-scripts">Back to top ↑</a></p>
