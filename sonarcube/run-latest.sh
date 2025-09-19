@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# wget https://raw.githubusercontent.com/divyamohan1993/devops-shell-scripts/refs/heads/main/maven-gradle-sanity/run-latest.sh
+# wget https://raw.githubusercontent.com/divyamohan1993/devops-shell-scripts/refs/heads/main/sonarcube/run-latest.sh
 # chmod 755 run-latest.sh 
 # sudo ./run-latest.sh 
 set -Eeuo pipefail
